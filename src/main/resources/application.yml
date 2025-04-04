@@ -59,6 +59,6 @@ okta:
 # Logging configuration
 logging:
   level:
-    org.springframework.security: TRACE
-    org.springframework.security.oauth2: TRACE
-    com.example.oktaapi: DEBUG
+    '[org.springframework.security]': DEBUG
+    '[org.springframework.security.oauth2]': DEBUG
+    '[com.example.oktaapi]': DEBUG

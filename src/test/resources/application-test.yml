@@ -17,9 +17,6 @@ okta:
 # Logging configuration for tests
 logging:
   level:
-    org:
-      springframework:
-        security: INFO
-    com:
-      example:
-        oktaapi: INFO
+    '[org.springframework.security]': INFO
+    '[org.springframework.test]': WARN # Reduce noise from Spring's test logging
+    '[com.example.oktaapi]': INFO

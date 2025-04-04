@@ -19,14 +19,12 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.oktaapi.config.AppAuthoritiesConfig;
-import com.example.oktaapi.config.SecurityConfig;
 import com.example.oktaapi.config.TestSecurityConfig;
 
-@WebMvcTest(SecuredController.class)
+@WebMvcTest(controllers = SecuredController.class)
 @Import({
     AppAuthoritiesConfig.class, 
-    TestSecurityConfig.class,
-    SecurityConfig.class
+    TestSecurityConfig.class
 })
 @ActiveProfiles("test")
 class SecuredControllerTest {
