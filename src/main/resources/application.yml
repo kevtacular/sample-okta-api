@@ -1,0 +1,64 @@
+# Application configuration
+app:
+  # Each logical role named below is given a set of capabilities within the application.
+  # Each role is here associated with a list of Okta groups that are bound to the role.
+  # In other words, users who are members of these Okta groups will be allowed to access
+  # the application capabilities associated with the role.
+  #
+  # The groups for each role are treated as Spring Security "authorities" and are available
+  # as String[] beans named after the role. For example, a role named "user" has an 
+  # associated bean named "userAuthorities" that is an array of all the Okta groups bound
+  # to the "user" role. The AppAuthoritiesConfig class is responsible for defining these
+  # [role]Authorities beans.
+  #
+  # See the SecuredController for an example of how these [role]Authorities beans can be
+  # used to restrict access to specific endpoints using the @PreAuthorize annotation.
+  #
+  # At runtime, when a request is received, each Okta group listed in the "groups" claim
+  # within an Okta token will be added to the Spring SecurityContext as an Authority
+  # with the same name. Spring Security then compares these Authorities (i.e., groups)
+  # against the Authorities required for that endpoint prior to calling the endpoint
+  # method.
+  #
+  roles: 
+    user: # Override these examples with your actual Okta groups for your application!
+      - SampleUserGroup
+      - SampleAdminGroup
+    admin: # Override these examples with your actual Okta groups for your application!
+      - SampleAdminGroup
+
+# Server configuration
+server:
+  port: 8080
+
+# Spring configuration
+spring:
+  profiles:
+    group:
+      # Default profile to use if none is specified; this allows local development by default.
+      # Create application-local.yml (outside of version control) to hold settings specific to your Okta config.
+      default: local  
+  application:
+    name: okta-api-demo
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${okta.oauth2.issuer:} # Use the issuer from the Okta configuration
+
+# Okta OAuth 2.0 Configuration
+# Override the PLACEHODER values in application-local.yml or otherwise override in your environment (e.g., via environment variables or command line arguments)
+okta:
+  oauth2:
+    issuer: YOUR-ISSUER-URL
+    audience: YOUR-AUDIENCE
+    client-id: YOUR-CLIENT-ID
+    client-secret: ignored # We provide a value here to avoid errors on startup, but it will be ignored since all we're doing is validating the JWT token. No need to override.
+    scopes: data.read,data.write # These are the specific scopes referenced in the sample code. If you change them, make sure to also update the code accordingly.
+
+# Logging configuration
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
+    com.example.oktaapi: DEBUG

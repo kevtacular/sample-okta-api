@@ -1,0 +1,25 @@
+app:
+  # Link the "user" and "admin" roles to mock groups for testing.
+  # See the AppAuthoritiesConfig class and application.yml for how these are used to
+  # create Spring Security authorities.
+  roles:
+    user:
+      - TestUserGroup 
+      - TestAdminGroup
+    admin:
+      - TestAdminGroup
+
+# Need to specify a valid issuer, even for tests
+okta:
+  oauth2:
+    issuer: https://dev-51704213.okta.com/oauth2/default
+
+# Logging configuration for tests
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+    com:
+      example:
+        oktaapi: INFO

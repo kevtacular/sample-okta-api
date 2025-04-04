@@ -1,0 +1,23 @@
+{
+  "name": "Java Spring Boot API",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "github.copilot-chat",
+        "saoudrizwan.claude-dev",
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "redhat.vscode-yaml",
+        "ms-azuretools.vscode-docker",
+        "davidanson.vscode-markdownlint",
+        "postman.postman-for-vscode"
+      ]
+    }
+  },
+  "forwardPorts": [8080],
+  "postCreateCommand": "mvn dependency:resolve"
+}
